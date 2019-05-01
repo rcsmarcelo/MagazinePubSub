@@ -47,7 +47,7 @@ disponível no escritório.
 
 ## Exercício 1
 
-Quais das opções acima você escolheria se fosse o gerente da editora?
+Qual das opções acima você escolheria se fosse o gerente da editora?
 
 ## Exercício 2
 
@@ -68,7 +68,14 @@ Uma nova revista só é requisitada após o assinante "descansar" pelo tempo def
 * No caso do produtor não possuir mais revistas para serem entregues (onComplete), 
 o assinante deve escrever na console quantas revistas recebeu no total. 
 
+A classe MagazineApplication implementa um produtor com seus dois assinantes, 
+ilustrando 3 casos diferentes:
 
+**Caso 1**: Assinantes são rápidos e, portanto, o tamanho do buffer não é tão 
+importante nesse caso
+**Caso 2**: Um assinante lento mas um bom tamanho de buffer para garantir a 
+entrega de todas as revistas
+**Caso 3**: Um assinante lento e um buffer limitado.
 
 
 
