@@ -1,5 +1,6 @@
 import java.util.concurrent.Flow;
 import java.util.logging.Logger;
+import java.util.ArrayList;
 
 public class MagazineSubscriber implements Flow.Subscriber<Integer>  {
 
@@ -7,6 +8,8 @@ public class MagazineSubscriber implements Flow.Subscriber<Integer>  {
 
     private final long sleepTime;
     private final String subscriberName;
+    private Flow.Subscription sub;
+    private ArrayList<Integer> magazines = new ArrayList<Integer>();
 
     /**
      * Construtor.
@@ -30,7 +33,9 @@ public class MagazineSubscriber implements Flow.Subscriber<Integer>  {
      * @param subscription a assinatura
      */
     public void onSubscribe(Flow.Subscription subscription) {
-       // @TODO
+       System.out.println("Subscribed");
+       sub = subscription;
+       sub.request(1);
     }
 
     /**
@@ -40,11 +45,15 @@ public class MagazineSubscriber implements Flow.Subscriber<Integer>  {
      * No entanto, entre esses, incluiremos um tempo de descanso que é configurável ao criar o assinante.
      * Dessa forma, podemos experimentar diferentes cenários e ver o que acontece quando os inscritos não
      * se comportam adequadamente.
-     * Lembre-se de implementar a lógica de registrar as revistas que faltam no caso de descarte.
+     * Lembre-se de implementar a lógi
+     * ca de registrar as revistas que faltam no caso de descarte.
      * @param item a próxima revista entregue ao assinante
      */
     public void onNext(Integer item) {
-        // @TODO
+        log("Received item: " + item);
+        magazines.add(item);
+        this.takeSomeRest();
+        sub.request(1);
     }
 
     /**
@@ -62,7 +71,8 @@ public class MagazineSubscriber implements Flow.Subscriber<Integer>  {
      * Lembre-se de escrever no log a mensagem que indica quantas revistas o assinante recebeu.
      */
     public void onComplete() {
-        // @TODO
+        log("Ending subscription.");
+        sub.cancel();
     }
 
     /**
