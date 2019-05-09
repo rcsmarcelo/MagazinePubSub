@@ -51,6 +51,8 @@ public class MagazineSubscriber implements Flow.Subscriber<Integer>  {
      */
     public void onNext(Integer item) {
         log("Received item: " + item);
+        if (!magazines.contains(item - 1))
+            log("Missed issue " + (item - 1));
         magazines.add(item);
         this.takeSomeRest();
         sub.request(1);
